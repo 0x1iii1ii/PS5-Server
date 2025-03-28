@@ -4,16 +4,17 @@
 #include <DNSServer.h>
 #include <ESP8266mDNS.h>
 #include <FS.h>
+#include "psfree.h"
 #include "offsets.h"
 #include "module.h"
 
 
                      // use LITTLEFS not SPIFFS [ true / false ]
-#define USELFS false // LITTLEFS will be used instead of SPIFFS for the storage filesystem.
+#define USELFS true // LITTLEFS will be used instead of SPIFFS for the storage filesystem.
                      // you can find the littlefs sketch data upload tool here https://github.com/earlephilhower/arduino-esp8266littlefs-plugin/releases
 
                      // enable internal etahen.h [ true / false ]
-#define INTHEN true  // etahen is placed in the app partition to free up space on the storage for other payloads. 
+#define INTHEN false  // etahen is placed in the app partition to free up space on the storage for other payloads. 
                      // with this enabled you do not upload etahen to the board, set this to false if you wish to upload etahen.
 
                       // enable autohen [ true / false ]
@@ -225,7 +226,6 @@ void handleBinload(String pload, int port)
   webServer.send(scode, "text/html", tmphtm);
 }
 
-
 bool loadFromSdCard(String path) {
  path = webServer.urlDecode(path);
  //Serial.println(path);
@@ -255,174 +255,301 @@ bool loadFromSdCard(String path) {
     return true;
   }
 
+  if (path.endsWith("/1.00.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_00_gz, sizeof(o1_00_gz));
+    return true;
+  }
 
-  if (path.endsWith("/3.00.js"))
-  {
+  if (path.endsWith("/1.01.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_01_gz, sizeof(o1_01_gz));
+    return true;
+  }
+
+  if (path.endsWith("/1.02.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_02_gz, sizeof(o1_02_gz));
+    return true;
+  }
+
+  if (path.endsWith("/1.05.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_05_gz, sizeof(o1_05_gz));
+    return true;
+  }
+
+  if (path.endsWith("/1.10.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_10_gz, sizeof(o1_10_gz));
+    return true;
+  }
+
+  if (path.endsWith("/1.11.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_11_gz, sizeof(o1_11_gz));
+    return true;
+  }
+
+  if (path.endsWith("/1.12.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_12_gz, sizeof(o1_12_gz));
+    return true;
+  }
+
+  if (path.endsWith("/1.13.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_13_gz, sizeof(o1_13_gz));
+    return true;
+  }
+
+  if (path.endsWith("/1.14.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o1_14_gz, sizeof(o1_14_gz));
+    return true;
+  }
+
+  if (path.endsWith("/2.00.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o2_00_gz, sizeof(o2_00_gz));
+    return true;
+  }
+
+  if (path.endsWith("/2.20.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o2_20_gz, sizeof(o2_20_gz));
+    return true;
+  }
+
+  if (path.endsWith("/2.25.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o2_25_gz, sizeof(o2_25_gz));
+    return true;
+  }
+
+  if (path.endsWith("/2.26.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o2_26_gz, sizeof(o2_26_gz));
+    return true;
+  }
+
+  if (path.endsWith("/2.30.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o2_30_gz, sizeof(o2_30_gz));
+    return true;
+  }
+
+  if (path.endsWith("/2.50.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o2_50_gz, sizeof(o2_50_gz));
+    return true;
+  }
+
+  if (path.endsWith("/2.70.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o2_70_gz, sizeof(o2_70_gz));
+    return true;
+  }
+
+  if (path.endsWith("/3.00.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o3_00_gz, sizeof(o3_00_gz));
     return true;
   }
 
-  if (path.endsWith("/3.10.js"))
-  {
+  if (path.endsWith("/3.10.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o3_10_gz, sizeof(o3_10_gz));
     return true;
   }
 
-  if (path.endsWith("/3.20.js"))
-  {
+  if (path.endsWith("/3.20.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o3_20_gz, sizeof(o3_20_gz));
     return true;
   }
 
-  if (path.endsWith("/3.21.js"))
-  {
+  if (path.endsWith("/3.21.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o3_21_gz, sizeof(o3_21_gz));
     return true;
   }
 
-  if (path.endsWith("/4.00.js"))
-  {
+  if (path.endsWith("/4.00.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o4_00_gz, sizeof(o4_00_gz));
     return true;
   }
 
-  if (path.endsWith("/4.02.js"))
-  {
+  if (path.endsWith("/4.02.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o4_02_gz, sizeof(o4_02_gz));
     return true;
   }
 
-  if (path.endsWith("/4.03.js"))
-  {
+  if (path.endsWith("/4.03.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o4_03_gz, sizeof(o4_03_gz));
     return true;
   }
 
-  if (path.endsWith("/4.50.js"))
-  {
+  if (path.endsWith("/4.50.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o4_50_gz, sizeof(o4_50_gz));
     return true;
   }
 
-  if (path.endsWith("/4.51.js"))
-  {
+  if (path.endsWith("/4.51.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), o4_51_gz, sizeof(o4_51_gz));
     return true;
   }
 
-  if (path.endsWith("/module/int64.js"))
-  {
+  if (path.endsWith("/5.00.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o5_00_gz, sizeof(o5_00_gz));
+    return true;
+  }
+
+  if (path.endsWith("/5.02.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o5_02_gz, sizeof(o5_02_gz));
+    return true;
+  }
+
+  if (path.endsWith("/5.10.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o5_10_gz, sizeof(o5_10_gz));
+    return true;
+  }
+
+  if (path.endsWith("/5.50.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), o5_50_gz, sizeof(o5_50_gz));
+    return true;
+  }
+
+  if (path.endsWith("/psfree/alert.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), alert_gz, sizeof(alert_gz));
+    return true;
+  }
+
+  if (path.endsWith("/psfree/config.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), config_gz, sizeof(config_gz));
+    return true;
+  }
+
+  if (path.endsWith("/psfree/psfree.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), psfreeo_gz, sizeof(psfreeo_gz));
+    return true;
+  }
+  if (path.endsWith("/psfree/module/int64.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), int64m_gz, sizeof(int64m_gz));
     return true;
   }
-
-  if (path.endsWith("/module/utils.js"))
-  {
+  if (path.endsWith("/psfree/module/offset.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), offset_gz, sizeof(offset_gz));
+    return true;
+  }
+  if (path.endsWith("/psfree/module/utils.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), utils_gz, sizeof(utils_gz));
     return true;
   }
 
-  if (path.endsWith("/module/constants.js"))
-  {
+  if (path.endsWith("/psfree/module/chain.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
-    webServer.send(200, dataType.c_str(), constants_gz, sizeof(constants_gz));
+    webServer.send(200, dataType.c_str(), chain_gz, sizeof(chain_gz));
     return true;
   }
 
-  if (path.endsWith("/module/mem.js"))
-  {
+  if (path.endsWith("/psfree/module/mem.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), mem_gz, sizeof(mem_gz));
     return true;
   }
 
-  if (path.endsWith("/module/memtools.js"))
-  {
+  if (path.endsWith("/psfree/module/memtools.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), memtools_gz, sizeof(memtools_gz));
     return true;
   }
 
-  if (path.endsWith("/module/rw.js"))
-  {
+  if (path.endsWith("/psfree/module/rw.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), rw_gz, sizeof(rw_gz));
     return true;
   }
 
-  if (path.endsWith("/custom_host_stuff.js"))
-  {
+  if (path.endsWith("/custom_host_stuff.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), custom_host_stuff_gz, sizeof(custom_host_stuff_gz));
     return true;
   }
 
-  if (path.endsWith("/exploit.js"))
-  {
-    webServer.sendHeader("Content-Encoding", "gzip");
-    webServer.send(200, dataType.c_str(), exploit_gz, sizeof(exploit_gz));
-    return true;
-  }
-
-  if (path.endsWith("/int64.js"))
-  {
+  if (path.endsWith("/int64.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), int64_gz, sizeof(int64_gz));
     return true;
   }
 
-  if (path.endsWith("/main.css"))
-  {
+  if (path.endsWith("/main.css")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), main_gz, sizeof(main_gz));
     return true;
   }
 
-  if (path.endsWith("/rop.js"))
-  {
+  if (path.endsWith("/main.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), mainj_gz, sizeof(mainj_gz));
+    return true;
+  }
+
+  if (path.endsWith("/rop.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), rop_gz, sizeof(rop_gz));
     return true;
   }
 
-  if (path.endsWith("/rop_slave.js"))
-  {    
+  if (path.endsWith("/rop_slave.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), rop_slave_gz, sizeof(rop_slave_gz));
     return true;
   }
 
-  if (path.endsWith("/webkit_fontface.js"))
-  {   
+  if (path.endsWith("/syscalls.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
-    webServer.send(200, dataType.c_str(), webkit_fontface_gz, sizeof(webkit_fontface_gz));
+    webServer.send(200, dataType.c_str(), syscalls_gz, sizeof(syscalls_gz));
     return true;
   }
 
-  if (path.endsWith("/webkit_psfree.js"))
-  {   
+  if (path.endsWith("/umtx2.js")) {
     webServer.sendHeader("Content-Encoding", "gzip");
-    webServer.send(200, dataType.c_str(), webkit_psfree_gz, sizeof(webkit_psfree_gz));
+    webServer.send(200, dataType.c_str(), umtx2_gz, sizeof(umtx2_gz));
     return true;
   }
 
-  if (path.endsWith("/payload_map.js"))
-  {
-    handlePayloads();
+  if (path.endsWith("/payloads/elfldr.elf")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), elfldr_gz, sizeof(elfldr_gz));
     return true;
   }
 
+  if (path.endsWith("/payload_map.js")) {
+    webServer.sendHeader("Content-Encoding", "gzip");
+    webServer.send(200, dataType.c_str(), payload_map_gz, sizeof(payload_map_gz));
+    return true;
+  }
+
+  // if (path.endsWith("/payload_map.js")) {
+  //   handlePayloads();
+  //   return true;
+  // }
 
   bool isGzip = false;
 
