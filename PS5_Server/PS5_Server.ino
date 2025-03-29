@@ -22,7 +22,7 @@
                       // pressing R2 on the controller will stop the auto load and allow you to select between the psfree and fontface exploits.
                       // if you wish to update the etaHen payload name it "etahen.bin" and upload it to the board storage to override the internal copy. 
 
-
+#include "elfldr.h"
 #include "etahen.h"
 #include "exploit.h"
 #if USELFS
@@ -534,7 +534,7 @@ bool loadFromSdCard(String path) {
     return true;
   }
 
-  if (path.endsWith("/payloads/elfldr.elf")) {
+  if (path.endsWith("/elfldr.elf")) {
     webServer.sendHeader("Content-Encoding", "gzip");
     webServer.send(200, dataType.c_str(), elfldr_gz, sizeof(elfldr_gz));
     return true;
