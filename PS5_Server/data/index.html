@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PS5-Relapse</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: #0c0c0f;
+        color: #f1f1f2;
+      }
+
+      body {
+        display: grid;
+        box-sizing: border-box;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100svh;
+        margin: 0;
+        padding: 28px clamp(20px, 5vw, 64px) 20px;
+      }
+
+      header,
+      footer {
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-weight: 650;
+        letter-spacing: -0.025em;
+      }
+
+      .firmware {
+        margin: 12px 0 0;
+        color: #aaa9ae;
+        font-size: 0.95rem;
+      }
+
+      .firmware strong {
+        color: #e0e0e2;
+        font-weight: 600;
+      }
+
+      main {
+        display: grid;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        align-content: center;
+      }
+
+      .description {
+        max-width: 650px;
+        margin: 0 auto 26px;
+        color: #b3b2b7;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      #jailbreak-button {
+        width: 100%;
+        min-height: 88px;
+        border: 0;
+        border-radius: 24px;
+        background: #202124;
+        color: #f5f5f6;
+        cursor: pointer;
+        font: inherit;
+        font-size: 1.25rem;
+        font-weight: 700;
+        transition:
+          background 150ms ease,
+          opacity 150ms ease;
+      }
+
+      #jailbreak-button:hover:not(:disabled) {
+        background: #2b2c30;
+      }
+
+      #jailbreak-button:focus-visible {
+        outline: 2px solid #b8b8bd;
+        outline-offset: 3px;
+      }
+
+      #jailbreak-button:disabled {
+        cursor: default;
+        opacity: 0.65;
+      }
+
+      #console:empty {
+        display: none;
+      }
+
+      #console {
+        display: grid;
+        max-height: 350px;
+        gap: 8px;
+        margin-top: 18px;
+        padding: 14px 16px;
+        border: 1px solid #29292d;
+        border-radius: 12px;
+        background: #141416;
+        overflow: auto;
+        color: #c1c0c5;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.76rem;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+        scrollbar-color: #4b4b50 transparent;
+      }
+
+      .disclaimer {
+        max-width: 760px;
+        margin: 0 auto 16px;
+        color: #85848a;
+        font-size: 0.75rem;
+        line-height: 1.6;
+      }
+
+      .credits {
+        margin: 0;
+        color: #a09fa4;
+        font-size: 0.78rem;
+        line-height: 1.65;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>PS5 Relapse Jailbreak 7.00-13.60</h1>
+      <p class="firmware">
+        Current firmware: <strong id="current-firmware">Checking…</strong>
+      </p>
+    </header>
+    <main>
+      <button id="jailbreak-button" type="button">Jailbreak</button>
+      <div
+        id="console"
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+      ></div>
+    </main>
+    <footer>
+      <p class="credits">
+        <strong>Credits &amp; thanks</strong><br />
+        ntfargo, ufm42, Sonic-Iso, Jordy, Dr. Yenyen, TheFlow, SlidyBat, Flatz,
+        cow, nhk, bollarz, Sleirsgoevy, EchoStretch, EarthOnion
+      </p>
+    </footer>
+    <script src="./src/firmware.js"></script>
+    <script src="./src/main.js"></script>
+    <script src="./src/rop.js"></script>
+    <script src="./src/utils/syscalls.js"></script>
+    <script type="module" src="./src/site.js"></script>
+  </body>
+</html>
